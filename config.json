@@ -1,4 +1,5 @@
 {
+    "database": "naomi.db",
     "authorizedUsers": [
         { "username": "case", "discriminator": "5618" },
         { "username": "agro", "discriminator": "3028" }

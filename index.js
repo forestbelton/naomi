@@ -1,9 +1,12 @@
 const Discord = require('discord.js')
-const winston = require('winston')
+const sqlite3 = require('sqlite3').verbose()
 const util = require('util')
+const winston = require('winston')
+
+const MessageHandlers = require('./lib/MessageHandlers')
 
 const config = require('./config.json')
-const MessageHandlers = require('./lib/MessageHandlers')
+const db = new sqlite3.Database(config.database)
 
 var logger = new (winston.Logger)({
     transports: [
@@ -56,7 +59,8 @@ client.on('message', message => {
         logger,
         message,
         data,
-        MessageHandlers
+        MessageHandlers,
+        db
     })
 })
 
