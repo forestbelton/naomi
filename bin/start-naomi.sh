@@ -1,11 +1,12 @@
 #!/bin/bash
 
+set -e
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${DIR}/.."
 
 echo "Applying migrations..."
-find migrations -type f -name '*.sql' -exec \
-    sh -c "sqlite3 naomi.db < {}" \;
+flyway -configFile=./conf/flyway.conf migrate
 
 echo "Starting bot..."
 npm start

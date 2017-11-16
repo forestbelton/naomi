@@ -5,7 +5,7 @@ const winston = require('winston')
 
 const Commands = require('./lib/Commands')
 
-const config = require('./config.json')
+const config = require('./conf/app.json')
 const db = new sqlite3.Database(config.database)
 
 var logger = new (winston.Logger)({

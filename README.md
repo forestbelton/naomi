@@ -4,6 +4,8 @@ friendly chat bot
 
 ### Windows/macOS/Linux
 
+You need Flyway installed: https://flywaydb.org/
+
 ```bash
 git clone https://github.com/forestbelton/naomi.git
 yarn install
