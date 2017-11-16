@@ -4,7 +4,6 @@ const util = require('util')
 const winston = require('winston')
 
 const Commands = require('./lib/Commands')
-const MessageHandlers = require('./lib/MessageHandlers')
 
 const config = require('./config.json')
 const db = new sqlite3.Database(config.database)
@@ -55,13 +54,8 @@ client.on('message', message => {
         logger,
         message,
         data,
-        MessageHandlers,
         db,
         commands: Commands
-    }
-
-    if (typeof MessageHandlers[name] !== 'undefined') {
-        MessageHandlers[name](context)
     }
 
     Commands.forEach(command => command.resolve(context, content))
