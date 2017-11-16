@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "discord.js": "^11.2.1",
+    "libsodium-wrappers": "^0.7.2",
     "node-opus": "^0.2.7",
     "uuid": "^3.1.0",
     "winston": "^2.4.0"
