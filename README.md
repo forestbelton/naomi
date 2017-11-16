@@ -7,7 +7,7 @@ friendly chat bot
 ```bash
 git clone https://github.com/forestbelton/naomi.git
 yarn install
-APP_TOKEN=bot_token npm start
+APP_TOKEN=bot_token ./bin/start-naomi.sh
 ```
 
 ### Docker
