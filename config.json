@@ -1,5 +1,6 @@
 {
     "authorizedUsers": [
-        { "username": "case", "discriminator": "5618" }
+        { "username": "case", "discriminator": "5618" },
+        { "username": "agro", "discriminator": "3028" }
     ]
 }
