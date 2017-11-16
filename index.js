@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3').verbose()
 const util = require('util')
 const winston = require('winston')
 
+const Commands = require('./lib/Commands')
 const MessageHandlers = require('./lib/MessageHandlers')
 
 const config = require('./config.json')
@@ -40,11 +41,6 @@ client.on('message', message => {
     const name = match[1]
     const data = match[2]
 
-    if (typeof MessageHandlers[name] !== 'function') {
-        message.reply(`Unknown command: ${name}`)
-        return
-    }
-
     const isAuthorized = config.authorizedUsers.some(user =>
         user.username === username && user.discriminator === discriminator
     )
@@ -54,14 +50,20 @@ client.on('message', message => {
         return
     }
 
-    MessageHandlers[name]({
+    const context = {
         client,
         logger,
         message,
         data,
         MessageHandlers,
         db
-    })
+    }
+
+    if (typeof MessageHandlers[name] !== 'undefined') {
+        MessageHandlers[name](context)
+    }
+
+    Commands.forEach(command => command.resolve(context, content))
 })
 
 process.on('SIGINT', () => {
