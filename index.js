@@ -56,7 +56,8 @@ client.on('message', message => {
         message,
         data,
         MessageHandlers,
-        db
+        db,
+        commands: Commands
     }
 
     if (typeof MessageHandlers[name] !== 'undefined') {
