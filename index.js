@@ -10,7 +10,7 @@ const db = new sqlite3.Database(config.database)
 
 var logger = new (winston.Logger)({
     transports: [
-        new (winston.transports.Console)(),
+        new (winston.transports.Console)({ colorize: true, timestamp: 'true' }),
         new (winston.transports.File)({ filename: 'output.log' })
     ]
 })
