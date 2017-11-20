@@ -32,7 +32,7 @@ client.on('message', message => {
     const { username, discriminator } = message.author
 
     logger.info(`${username}#${discriminator}> ${content}`)
-    const match = content.match(/^!([^ ]+) *(.*)$/)
+    const match = content.match(/^!([^ ]+) *((.|[\r\n])*)$/)
     if (null === match) {
         return
     }
