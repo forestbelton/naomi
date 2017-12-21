@@ -57,7 +57,8 @@ client.on('message', message => {
         message,
         data,
         db,
-        commands: Commands
+        commands: Commands,
+        config
     }
 
     Commands.forEach(command => command.resolve(context, content))
