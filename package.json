@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "discord.js": "^11.2.1",
+    "gnuplot": "^0.3.1",
     "node-opus": "^0.2.7",
     "sqlite3": "^3.1.13",
     "uuid": "^3.1.0",
