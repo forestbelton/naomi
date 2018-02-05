@@ -2,7 +2,10 @@
     "database": "naomi.db",
     "authorizedUsers": [
         { "username": "case", "discriminator": "5618" },
-        { "username": "agro", "discriminator": "3028" }
+        { "username": "agro", "discriminator": "3028" },
+        { "username": "wired", "discriminator": "4483" },
+        { "username": "tiksi", "discriminator": "3879" },
+        { "username": "ncatelli", "discriminator": "8311" }
     ],
     "jukeboxDirectory": "/Users/case/Projects/naomi/data/jukebox"
 }
