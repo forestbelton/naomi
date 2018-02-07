@@ -42,15 +42,6 @@ client.on('message', message => {
     const name = match[1]
     const data = match[2]
 
-    const isAuthorized = config.authorizedUsers.some(user =>
-        user.username === username && user.discriminator === discriminator
-    )
-
-    if (!isAuthorized) {
-        message.reply('You are not authorized to do that')
-        return
-    }
-
     const context = {
         client,
         logger,
@@ -61,7 +52,25 @@ client.on('message', message => {
         config
     }
 
-    Commands.forEach(command => command.resolve(context, content))
+    const authorizedFromConfig = config.authorizedUsers.some(user =>
+        user.username === username && user.discriminator === discriminator
+    )
+
+    if (!authorizedFromConfig) {
+        db.get('SELECT id FROM admins WHERE user_id = ?', [message.author.id], (err, row) => {
+            if (err || !row) {
+                if (err) {
+                    logger.error(err.toString())
+                }
+
+                message.reply('you are not authorized to do that.')
+            } else {
+                Commands.forEach(command => command.resolve(context, content))
+            }
+        })
+    } else {
+        Commands.forEach(command => command.resolve(context, content))
+    }
 })
 
 process.on('SIGINT', () => {
