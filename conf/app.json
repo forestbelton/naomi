@@ -3,5 +3,6 @@
     "authorizedUsers": [
         { "username": "case", "discriminator": "5618" }
     ],
-    "jukeboxDirectory": "/Users/case/Projects/naomi/data/jukebox"
+    "jukeboxDirectory": "/Users/case/Projects/naomi/data/jukebox",
+    "appid": "6382f16f08da7243484a4041a62ce7da"
 }
