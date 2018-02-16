@@ -66,11 +66,21 @@ client.on('message', message => {
 
                 message.reply('you are not authorized to do that.')
             } else {
-                Commands.forEach(command => command.resolve(context, content))
+                try {
+                    Commands.forEach(command => command.resolve(context, content))
+                } catch (e) {
+                    logger.error(e.toString())
+                    message.reply('I had trouble with that one.')
+                }
             }
         })
     } else {
-        Commands.forEach(command => command.resolve(context, content))
+        try {
+            Commands.forEach(command => command.resolve(context, content))
+        } catch (e) {
+            logger.error(e.toString())
+            message.reply('I had trouble with that one.')
+        }
     }
 })
 
