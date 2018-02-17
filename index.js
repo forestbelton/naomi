@@ -33,6 +33,14 @@ client.on('message', message => {
     const { content } = message
     const { username, discriminator } = message.author
 
+    if(message.guild) {
+        db.run('INSERT INTO  messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, message.channel.id, message.guild.name], err => {
+            if (err) {
+                console.log(err)
+            }
+        })
+    }
+
     logger.info(`${username}#${discriminator}> ${content}`)
     const match = content.match(/^!([^ ]+) *((.|[\r\n])*)$/)
     if (null === match) {
@@ -56,6 +64,8 @@ client.on('message', message => {
     const authorizedFromConfig = config.authorizedUsers.some(user =>
         user.username === username && user.discriminator === discriminator
     )
+
+
 
     if (!authorizedFromConfig) {
         db.get('SELECT id FROM admins WHERE user_id = ?', [message.author.id], (err, row) => {
