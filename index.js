@@ -17,6 +17,9 @@ var logger = new (winston.Logger)({
 
 const client = new Discord.Client()
 const appToken = process.env.APP_TOKEN
+const state = {
+    blackjackGames: {}
+}
 
 if (typeof appToken === 'undefined') {
     throw new Error('Please specify an application token via the `APP_TOKEN\''
@@ -49,7 +52,8 @@ client.on('message', message => {
         data,
         db,
         commands: Commands,
-        config
+        config,
+        state
     }
 
     const authorizedFromConfig = config.authorizedUsers.some(user =>
@@ -77,7 +81,7 @@ client.on('message', message => {
         try {
             Commands.forEach(command => command.resolve(context, content))
         } catch (e) {
-            logger.error(e.toString())
+            logger.error(e.stack)
             message.reply('I had trouble with that one.')
         }
     }
