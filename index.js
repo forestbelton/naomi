@@ -33,6 +33,15 @@ client.on('message', message => {
     const { content } = message
     const { username, discriminator } = message.author
 
+    if(message.guild) {
+        db.run('INSERT INTO  messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, message.channel.id, message.guild.name], err => {
+            if (err) {
+                logger.error(err.toString())
+            }
+        })
+    }
+
+
     logger.info(`${username}#${discriminator}> ${content}`)
     const match = content.match(/^!([^ ]+) *((.|[\r\n])*)$/)
     if (null === match) {
