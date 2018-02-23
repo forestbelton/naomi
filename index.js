@@ -52,7 +52,6 @@ client.on('message', message => {
         config
     }
 
-
     const authorizedFromConfig = config.authorizedUsers.some(user =>
         user.username === username && user.discriminator === discriminator
     )
