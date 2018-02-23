@@ -27,6 +27,13 @@ module.exports = {
         "keyword-spacing": [
             "error",
             { before: true }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                argsIgnorePattern: "^_",
+                varsIgnorePattern: "^_"
+            }
         ]
     }
 };
