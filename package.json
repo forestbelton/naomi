@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "babel-node ./index.js",
-    "test": "echo 'No tests to run.'"
+    "test": "echo 'No tests to run.'",
+    "lint": "eslint lib/"
   },
   "dependencies": {
     "axios": "^0.17.1",
