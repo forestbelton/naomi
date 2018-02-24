@@ -30,8 +30,7 @@ if (typeof appToken === 'undefined') {
 
 client.on('ready', () => {
     logger.info(`Logged in as ${client.user.tag}`)
-
-    client.user.setGame(null)
+    client.user.setActivity(null)
 })
 
 client.on('message', message => {
