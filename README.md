@@ -10,6 +10,7 @@ Install the required software:
 * [Flyway](https://flywaydb.org/)
 * [ffmpeg](https://www.ffmpeg.org/)
 * [gnuplot](http://gnuplot.info/) (**NOTE**: Must be built with `libcairo` support)
+* [youtube-dl](https://rg3.github.io/youtube-dl/)
 
 Perform the following steps from the command-line:
 
