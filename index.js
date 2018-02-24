@@ -44,7 +44,7 @@ client.on('message', message => {
         return
     }
 
-    const [name, data] = match
+    const [_, name, data] = match
 
     const context = {
         client,
