@@ -1,12 +1,14 @@
-const Discord = require('discord.js')
-const sqlite3 = require('sqlite3').verbose()
-const util = require('util')
-const winston = require('winston')
+import Discord from 'discord.js'
+import sqlite3 from 'sqlite3'
+import util from 'util'
+import winston from 'winston'
 
-const Commands = require('./lib/Commands')
+const sqlite = sqlite3.verbose()
 
-const config = require('./conf/app.json')
-const db = new sqlite3.Database(config.database)
+import Commands from './lib/Commands'
+
+import config from './conf/app.json'
+const db = new sqlite.Database(config.database)
 
 var logger = new (winston.Logger)({
     transports: [
@@ -42,8 +44,7 @@ client.on('message', message => {
         return
     }
 
-    const name = match[1]
-    const data = match[2]
+    const [_, name, data] = match
 
     const context = {
         client,
