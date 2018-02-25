@@ -1624,16 +1624,6 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libsodium-wrappers@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/libsodium-wrappers/-/libsodium-wrappers-0.7.3.tgz#b7e6326a5c42eb269540e360ce9c2600eb90c75c"
-  dependencies:
-    libsodium "0.7.3"
-
-libsodium@0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/libsodium/-/libsodium-0.7.3.tgz#35faf57293ba5485049d5072d0e96feda12f1f35"
-
 lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -1722,10 +1712,6 @@ nan@2, nan@^2.3.2:
 nan@^2.3.0:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.9.1.tgz#af88fcaee5292992c5b755121ceeaa74536fc228"
-
-nan@^2.8.0:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.9.2.tgz#f564d75f5f8f36a6d9456cca7a6c4fe488ab7866"
 
 nan@~2.7.0:
   version "2.7.0"
@@ -2222,12 +2208,6 @@ sntp@2.x.x:
   resolved "https://registry.yarnpkg.com/sntp/-/sntp-2.1.0.tgz#2c6cec14fedc2222739caf9b5c3d85d1cc5a2cc8"
   dependencies:
     hoek "4.x.x"
-
-sodium@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/sodium/-/sodium-2.0.3.tgz#4f489e9a3be75395d168a0341dde8b401432ddf6"
-  dependencies:
-    nan "^2.8.0"
 
 source-map-support@^0.4.15:
   version "0.4.18"
