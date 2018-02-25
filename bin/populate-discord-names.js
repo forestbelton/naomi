@@ -25,7 +25,7 @@ function updateDiscordName(user) {
 
             return knex('users').update({
                 discord_name: discord_name
-            })
+            }).where('discord_id', '=', user.discord_id)
         })
 }
 
