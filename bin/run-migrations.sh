@@ -7,7 +7,7 @@ FLYWAY_URL='https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/5.0.7
 if ! ( which flyway > /dev/null ); then
     cd ${HOME}
 
-    curl -v ${FLYWAY_URL}
+    curl -v -O ${FLYWAY_URL}
     tar -xvzf flyway-commandline-5.0.7-linux-x64.tar.gz
     export PATH=${PATH}:${HOME}/flyway-commandline-5.0.7-linux-x64
 
