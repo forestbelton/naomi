@@ -1,5 +1,5 @@
 UPDATE users
-    SET balance = (SELECT COALESCE(balance, 0) FROM user_casebucks WHERE user = users.discord_name);
+    SET balance = COALESCE((SELECT balance FROM user_casebucks WHERE user = users.discord_name), 0);
 
 DROP TABLE user_casebucks;
 DROP TABLE admins;
