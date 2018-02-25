@@ -2,6 +2,7 @@ import Discord from 'discord.js'
 import sqlite3 from 'sqlite3'
 import util from 'util'
 import winston from 'winston'
+import knex from 'knex'
 
 const sqlite = sqlite3.verbose()
 
@@ -10,6 +11,12 @@ import config from './conf/app.json'
 import { giveBucks, Reason } from './lib/util/caseBucks'
 
 const db = new sqlite.Database(config.database)
+const kdb = knex({
+    client: 'sqlite',
+    connection: {
+        filename: config.database
+    }
+})
 
 var logger = new (winston.Logger)({
     transports: [
@@ -40,13 +47,14 @@ client.on('message', message => {
     const channel = message.channel === null ? 'private' : message.channel.id
     const server = message.guild === null ? 'private' : message.guild.name
 
+    const discord_name = `${username}#${discriminator}`
     db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, channel, server], err => {
         if (err) {
             logger.error(err.toString())
         }
     })
 
-    logger.info(`${username}#${discriminator}> ${content}`)
+    logger.info(`${discord_name}> ${content}`)
     const match = content.match(/^!([^ ]+) *((.|[\r\n])*)$/)
     if (null === match) {
         return
@@ -60,6 +68,7 @@ client.on('message', message => {
         message,
         data,
         db,
+        kdb,
         commands: Commands,
         config,
         state
@@ -70,7 +79,7 @@ client.on('message', message => {
     )
 
     if (!authorizedFromConfig) {
-        db.get('SELECT id FROM admins WHERE user_id = ?', [message.author.id], (err, row) => {
+        db.get('SELECT id FROM users WHERE discord_id = ?', [message.author.id], (err, row) => {
             if (err || !row) {
                 if (err) {
                     logger.error(err.toString())
