@@ -9,7 +9,7 @@ if ! ( which flyway > /dev/null ); then
 
     curl -v -O ${FLYWAY_URL}
     tar -xvzf flyway-commandline-5.0.7-linux-x64.tar.gz
-    export PATH=${PATH}:${HOME}/flyway-commandline-5.0.7-linux-x64
+    export PATH=${PATH}:${HOME}/flyway-commandline-5.0.7
 
 fi
 
