@@ -3,7 +3,5 @@ node_js:
     - node
 
 before_script:
-    - pwd
-    - ls
     - ./bin/run-migrations.sh
     - yarn lint

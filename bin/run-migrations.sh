@@ -14,7 +14,7 @@ esac
 if ! ( which flyway > /dev/null ); then
     pushd $(mktemp -d)
 
-    curl -v ${FLYWAY_URL} | tar -xvz
+    curl -s ${FLYWAY_URL} | tar -xz
     PATH=${PATH}:$(pwd)/flyway-5.0.7
 
     popd
