@@ -6,8 +6,9 @@ import winston from 'winston'
 const sqlite = sqlite3.verbose()
 
 import Commands from './lib/Commands'
-
 import config from './conf/app.json'
+import { giveBucks, Reason } from './lib/util/caseBucks'
+
 const db = new sqlite.Database(config.database)
 
 var logger = new (winston.Logger)({
@@ -87,7 +88,18 @@ client.on('message', message => {
         })
     } else {
         try {
-            Commands.forEach(command => command.resolve(context, content))
+            const ranCommand = Commands.some(command => command.resolve(context, content))
+            if (!ranCommand) {
+                return
+            }
+
+            const randomNumber = Math.floor(Math.random() * 50)
+            if (randomNumber % 50 === 0) {
+                const userId = `${username}#${discriminator}`
+
+                giveBucks({ db, logger, user: userId, amount: 1, reason: Reason.LOYALTY })
+                message.reply('for your support of Naomi, you just got 1 casebuck.')
+            }
         } catch (e) {
             logger.error(e.stack)
             message.reply('I had trouble with that one.')
