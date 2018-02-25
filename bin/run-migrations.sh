@@ -12,10 +12,10 @@ Darwin)
 esac
 
 if ! ( which flyway > /dev/null ); then
-    pushd ${HOME}
+    pushd $(mktemp -d)
 
     curl -v ${FLYWAY_URL} | tar -xvz
-    export PATH=${PATH}:${HOME}/flyway-5.0.7
+    PATH=${PATH}:$(pwd)/flyway-5.0.7
 
     popd
 fi
