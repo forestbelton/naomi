@@ -15,7 +15,8 @@ const kdb = knex({
     client: 'sqlite',
     connection: {
         filename: config.database
-    }
+    },
+    useNullAsDefault: true
 })
 
 var logger = new (winston.Logger)({
@@ -47,8 +48,10 @@ client.on('message', message => {
     const channel = message.channel === null ? 'private' : message.channel.id
     const server = message.guild === null ? 'private' : message.guild.name
 
-    const discord_name = `${username}#${discriminator}`
-    db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, channel, server], err => {
+    const discord_id = message.author.id
+    const discord_name = `${message.author.username}#${message.author.discriminator}`
+
+    db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, discord_id, discriminator, channel, server], err => {
         if (err) {
             logger.error(err.toString())
         }
@@ -104,9 +107,7 @@ client.on('message', message => {
 
             const randomNumber = Math.floor(Math.random() * 50)
             if (randomNumber % 50 === 0) {
-                const userId = `${username}#${discriminator}`
-
-                giveBucks({ db, logger, user: userId, amount: 1, reason: Reason.LOYALTY })
+                giveBucks({ db, logger, user: discord_name, amount: 1, reason: Reason.LOYALTY })
                 message.reply('for your support of Naomi, you just got 1 casebuck.')
             }
         } catch (e) {
