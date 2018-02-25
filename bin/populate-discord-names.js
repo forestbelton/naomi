@@ -16,16 +16,16 @@ if (typeof process.env.APP_TOKEN === 'undefined') {
     throw new Error('The APP_TOKEN environment variable must be set')
 }
 
-function updateDiscordName(user) {
-    console.log('Updating user ' + user.discord_id)
+function updateDiscordName(row) {
+    console.log('Updating user ' + row.discord_id)
 
-    return client.fetchUser(user.discord_id)
+    return client.fetchUser(row.discord_id)
         .then(function(user) {
             var discord_name = user.username + '#' + user.discriminator
 
             return knex('users').update({
                 discord_name: discord_name
-            }).where('discord_id', '=', user.discord_id)
+            }).where('discord_id', '=', row.discord_id)
         })
 }
 
