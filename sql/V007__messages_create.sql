@@ -1,13 +1,9 @@
-CREATE TABLE IF NOT EXISTS messages(
+CREATE TABLE IF NOT EXISTS blackjack_scores(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sendtime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    content TEXT NOT NULL,
+    createdate TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user TEXT NOT NULL,
-    discriminator INTEGER NOT NULL,
-    channel INTEGER NOT NULL,
-    server TEXT NOT NULL
+    win INT NOT NULL DEFAULT 0,
+    lose INT NOT NULL DEFAULT 0
 );
 
-CREATE UNIQUE INDEX user_index ON messages(user);
-CREATE UNIQUE INDEX channel_index ON messages(channel);
-CREATE UNIQUE INDEX server_index ON messages(server);
+CREATE INDEX blackjack_scores_user_idx ON blackjack_scores(user);

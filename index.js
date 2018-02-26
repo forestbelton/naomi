@@ -1,12 +1,23 @@
-const Discord = require('discord.js')
-const sqlite3 = require('sqlite3').verbose()
-const util = require('util')
-const winston = require('winston')
+import Discord from 'discord.js'
+import sqlite3 from 'sqlite3'
+import util from 'util'
+import winston from 'winston'
+import knex from 'knex'
 
-const Commands = require('./lib/Commands')
+const sqlite = sqlite3.verbose()
 
-const config = require('./conf/app.json')
-const db = new sqlite3.Database(config.database)
+import Commands from './lib/Commands'
+import config from './conf/app.json'
+import { giveBucks, Reason } from './lib/util/caseBucks'
+
+const db = new sqlite.Database(config.database)
+const kdb = knex({
+    client: 'sqlite',
+    connection: {
+        filename: config.database
+    },
+    useNullAsDefault: true
+})
 
 var logger = new (winston.Logger)({
     transports: [
@@ -17,6 +28,9 @@ var logger = new (winston.Logger)({
 
 const client = new Discord.Client()
 const appToken = process.env.APP_TOKEN
+const state = {
+    blackjackGames: {}
+}
 
 if (typeof appToken === 'undefined') {
     throw new Error('Please specify an application token via the `APP_TOKEN\''
@@ -25,8 +39,7 @@ if (typeof appToken === 'undefined') {
 
 client.on('ready', () => {
     logger.info(`Logged in as ${client.user.tag}`)
-
-    client.user.setGame(null)
+    client.user.setActivity(null)
 })
 
 client.on('message', message => {
@@ -35,20 +48,22 @@ client.on('message', message => {
     const channel = message.channel === null ? 'private' : message.channel.id
     const server = message.guild === null ? 'private' : message.guild.name
 
+    const discord_id = message.author.id
+    const discord_name = `${message.author.username}#${message.author.discriminator}`
+
     db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, channel, server], err => {
         if (err) {
             logger.error(err.toString())
         }
     })
 
-    logger.info(`${username}#${discriminator}> ${content}`)
+    logger.info(`${discord_name}> ${content}`)
     const match = content.match(/^!([^ ]+) *((.|[\r\n])*)$/)
     if (null === match) {
         return
     }
 
-    const name = match[1]
-    const data = match[2]
+    const [_, name, data] = match
 
     const context = {
         client,
@@ -56,8 +71,10 @@ client.on('message', message => {
         message,
         data,
         db,
+        kdb,
         commands: Commands,
-        config
+        config,
+        state
     }
 
     const authorizedFromConfig = config.authorizedUsers.some(user =>
@@ -65,7 +82,7 @@ client.on('message', message => {
     )
 
     if (!authorizedFromConfig) {
-        db.get('SELECT id FROM admins WHERE user_id = ?', [message.author.id], (err, row) => {
+        db.get('SELECT id FROM users WHERE discord_id = ?', [message.author.id], (err, row) => {
             if (err || !row) {
                 if (err) {
                     logger.error(err.toString())
@@ -83,9 +100,18 @@ client.on('message', message => {
         })
     } else {
         try {
-            Commands.forEach(command => command.resolve(context, content))
+            const ranCommand = Commands.some(command => command.resolve(context, content))
+            if (!ranCommand) {
+                return
+            }
+
+            const randomNumber = Math.floor(Math.random() * 50)
+            if (randomNumber % 50 === 0) {
+                giveBucks({ db, logger, user: discord_name, amount: 1, reason: Reason.LOYALTY })
+                message.reply('for your support of Naomi, you just got 1 casebuck.')
+            }
         } catch (e) {
-            logger.error(e.toString())
+            logger.error(e.stack)
             message.reply('I had trouble with that one.')
         }
     }
