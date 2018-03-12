@@ -854,6 +854,12 @@ chokidar@^1.6.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
+chunk-text@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/chunk-text/-/chunk-text-1.0.5.tgz#b96ba599efcc6fdbb623e00c5a5c27add14bb608"
+  dependencies:
+    runes "^0.4.1"
+
 circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
@@ -2750,6 +2756,10 @@ run-async@^2.2.0:
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
   dependencies:
     is-promise "^2.1.0"
+
+runes@^0.4.1:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.3.tgz#32f7738844bc767b65cc68171528e3373c7bb355"
 
 rx-lite-aggregates@^4.0.8:
   version "4.0.8"

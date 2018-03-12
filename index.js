@@ -29,7 +29,8 @@ var logger = new (winston.Logger)({
 const client = new Discord.Client()
 const appToken = process.env.APP_TOKEN
 const state = {
-    blackjackGames: {}
+    blackjackGames: {},
+    zorkGames: {}
 }
 
 if (typeof appToken === 'undefined') {
