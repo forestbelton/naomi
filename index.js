@@ -51,7 +51,7 @@ client.on('message', message => {
     const discord_id = message.author.id
     const discord_name = `${message.author.username}#${message.author.discriminator}`
 
-    db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, discord_id, discriminator, channel, server], err => {
+    db.run('INSERT INTO messages (content, user, discriminator, channel, server) VALUES (?, ?, ?, ?, ?)', [content, username, discriminator, channel, server], err => {
         if (err) {
             logger.error(err.toString())
         }
