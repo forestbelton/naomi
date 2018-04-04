@@ -108,7 +108,7 @@ client.on('message', message => {
 
             const randomNumber = Math.floor(Math.random() * 50)
             if (randomNumber % 50 === 0) {
-                giveBucks({ db, logger, user: discord_name, amount: 1, reason: Reason.LOYALTY })
+                giveBucks({ kdb, logger, user: discord_name, amount: 1, reason: Reason.LOYALTY })
                 message.reply('for your support of Naomi, you just got 1 casebuck.')
             }
         } catch (e) {
