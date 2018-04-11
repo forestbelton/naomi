@@ -1,0 +1,12 @@
+When facing the choice between a poorly written code, and poorly formatted code, but not both: fix poorly written code. Formatting can be fixed later.
+Aim for minimum viable application, application that is good enough. Good enough, not sloppy.
+Be mindful about essential complexity, and accidental complexity.
+Fix broken "windows", things that will deteriorate code base quickly.
+Premature optimization should be avoided at all cost.
+Write smaller, yet testable units.
+Aim for T-shaped attitude where you have working knowledge on most parts, deep knowledge on a specific domain.
+If you only have a time to make good interface or a good implementation, but not both, make a good interface. Implementation can be fixed later on.
+When designing interfaces, promise as little as possible.
+Your code should only do nothing, if nothing is correct to do.
+Always fix error handling before fixing errors.
+Fix the change of bugs backwards, from last observed problem back to the original clause.
