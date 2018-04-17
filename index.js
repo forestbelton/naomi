@@ -30,7 +30,8 @@ const client = new Discord.Client()
 const appToken = process.env.APP_TOKEN
 const state = {
     blackjackGames: {},
-    zorkGames: {}
+    zorkGames: {},
+    ticTacToeGames: {}
 }
 
 if (typeof appToken === 'undefined') {
