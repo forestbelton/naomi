@@ -93,7 +93,19 @@ client.on('message', message => {
                 message.reply('you are not authorized to do that.')
             } else {
                 try {
-                    Commands.forEach(command => command.resolve(context, content))
+                    const ranCommand = Commands.some(command => command.resolve(context, content))
+                    if (!ranCommand) {
+                        return
+                    }
+
+                    // the rate is 1/bucksAwardedRate
+                    const bucksAwardedRate = 25
+                    const randomNumber = Math.floor(Math.random() * bucksAwardedRate)
+
+                    if (randomNumber % bucksAwardedRate === 0) {
+                        giveBucks({ kdb, logger, user: discord_name, amount: 1, reason: Reason.LOYALTY })
+                        message.reply('for your support of Naomi, you just got 1 casebuck.')
+                    }
                 } catch (e) {
                     logger.error(e.toString())
                     message.reply('I had trouble with that one.')
