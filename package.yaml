@@ -1,10 +1,10 @@
 name:                naomi
 version:             0.1.0.0
-github:              "githubuser/naomi"
+github:              "forestbelton/naomi"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2018 Author name here"
+author:              "Forest Belton"
+maintainer:          "forest@homolo.gy"
+copyright:           "2018 Forest Belton"
 
 extra-source-files:
 - README.md
@@ -20,7 +20,11 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/naomi#readme>
 
 dependencies:
+- aeson >= 1.2.4.0 && < 2
 - base >= 4.7 && < 5
+- text >= 1.2.3.0 && < 2
+- websockets >= 0.12.4.1 && < 1
+- wuss >= 1.1.9 && < 2
 
 library:
   source-dirs: src
