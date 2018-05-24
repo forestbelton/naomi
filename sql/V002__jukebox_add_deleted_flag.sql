@@ -1,2 +1,0 @@
-ALTER TABLE jukebox_songs
-    ADD COLUMN deleted INTEGER NOT NULL DEFAULT 0;
