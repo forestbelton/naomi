@@ -31,7 +31,8 @@ const appToken = process.env.APP_TOKEN
 const state = {
     blackjackGames: {},
     zorkGames: {},
-    ticTacToeGames: {}
+    ticTacToeGames: {},
+    pendingCoinFlips: {}
 }
 
 if (typeof appToken === 'undefined') {
