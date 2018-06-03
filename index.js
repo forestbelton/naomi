@@ -32,7 +32,8 @@ const state = {
     blackjackGames: {},
     zorkGames: {},
     ticTacToeGames: {},
-    pendingCoinFlips: {}
+    pendingCoinFlips: {},
+    guess100Games: {}
 }
 
 if (typeof appToken === 'undefined') {
