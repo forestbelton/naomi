@@ -1,6 +1,6 @@
 # naomi [![Build Status](https://travis-ci.org/forestbelton/naomi.svg?branch=master)](https://travis-ci.org/forestbelton/naomi)
 
-friendly chat bot
+very friendly chat bot
 
 ## Setup instructions
 
