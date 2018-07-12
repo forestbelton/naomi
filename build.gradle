@@ -19,8 +19,10 @@ mainClassName = "com.github.forestbelton.naomi.NaomiKt"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "net.dv8tion:JDA:3.6.0_380"
 }
