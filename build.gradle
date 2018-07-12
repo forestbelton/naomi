@@ -14,6 +14,9 @@ buildscript {
 
 apply plugin: 'kotlin'
 
+apply plugin: 'application'
+mainClassName = "com.github.forestbelton.naomi.NaomiKt"
+
 repositories {
     mavenCentral()
 }
