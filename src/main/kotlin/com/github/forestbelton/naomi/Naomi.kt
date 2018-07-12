@@ -11,6 +11,6 @@ fun main(args: Array<String>) {
     }
 
     JDABuilder(AccountType.BOT)
-            .setToken(token)
-            .buildBlocking()
+        .setToken(token)
+        .buildBlocking()
 }
