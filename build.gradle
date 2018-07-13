@@ -8,6 +8,7 @@ buildscript {
         mavenCentral()
         jcenter()
     }
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -35,4 +36,7 @@ dependencies {
     compile "net.dv8tion:JDA:3.6.0_380"
 
     compile "com.squareup.okhttp3:okhttp:3.10.0"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
