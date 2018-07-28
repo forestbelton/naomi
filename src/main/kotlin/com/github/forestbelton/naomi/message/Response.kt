@@ -1,4 +1,3 @@
 package com.github.forestbelton.naomi.message
 
-interface Response {
-}
+class Response
