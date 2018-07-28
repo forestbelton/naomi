@@ -5,8 +5,13 @@ import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 import org.apache.logging.log4j.LogManager
+import org.flywaydb.core.Flyway
 
 fun main(args: Array<String>) {
+    val flyway = Flyway()
+    flyway.setDataSource("jdbc:sqlite:./naomi.db", "", "")
+    flyway.migrate()
+
     val token = System.getenv("APP_TOKEN")
     if (token == null) {
         System.err.println("No app token available. Please set the APP_TOKEN environment variable.")
