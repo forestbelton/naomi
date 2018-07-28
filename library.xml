@@ -1,5 +1,4 @@
 <configuration>
-    <!-- Configure the database connection here -->
     <jdbc>
         <driver>org.sqlite.JDBC</driver>
         <url>jdbc:sqlite:./naomi.db</url>
@@ -15,7 +14,7 @@
 
             <!-- If left empty, jOOQ will generate all available schemata. See the
                  manual's next section to learn how to generate several schemata -->
-            <inputSchema>[your database schema / owner / name]</inputSchema>
+            <inputSchema></inputSchema>
         </database>
 
         <generate>

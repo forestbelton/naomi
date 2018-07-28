@@ -8,15 +8,14 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.flywaydb:flyway-gradle-plugin:5.1.4"
+
         classpath "org.xerial:sqlite-jdbc:3.23.1"
+
         classpath "org.jooq:jooq:3.11.3"
         classpath "org.jooq:jooq-meta:3.11.3"
         classpath "org.jooq:jooq-codegen:3.11.3"
     }
-}
-
-plugins {
-    id "org.flywaydb.flyway" version "5.1.4"
 }
 
 group 'com.github.forestbelton'
@@ -26,6 +25,8 @@ apply plugin: 'kotlin'
 
 apply plugin: 'application'
 mainClassName = "com.github.forestbelton.naomi.NaomiKt"
+
+apply plugin: 'org.flywaydb.flyway'
 
 repositories {
     mavenCentral()
@@ -54,5 +55,20 @@ dependencies {
 }
 
 flyway {
-    url = 'jdbc:sqlite:./naomi.db'
+    url = "jdbc:sqlite:$rootDir/naomi.db"
+}
+
+task('jooqGenerate') {
+    doLast {
+        String[] args = ["$rootDir/library.xml"]
+        org.jooq.codegen.GenerationTool.main(args)
+    }
+}
+
+compileKotlin {
+    dependsOn jooqGenerate
+}
+
+clean.doFirst {
+    delete "$rootDir/src/main/java"
 }
