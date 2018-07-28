@@ -27,6 +27,10 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
+    compile "org.xerial:sqlite-jdbc:3.23.1"
+    compile "org.jooq:jooq:3.11.3"
+    compile "org.flywaydb:flyway-core:5.1.4"
+
     compile "com.beust:klaxon:3.0.1"
 
     compile "org.apache.logging.log4j:log4j-api:2.11.0"
@@ -39,4 +43,13 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
+
+buildscript {
+    dependencies {
+        classpath "org.xerial:sqlite-jdbc:3.23.1"
+        classpath "org.jooq:jooq:3.11.3"
+        classpath "org.jooq:jooq-meta:3.11.3"
+        classpath "org.jooq:jooq-codegen:3.11.3"
+    }
 }

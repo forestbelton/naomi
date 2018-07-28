@@ -1,0 +1,31 @@
+<configuration>
+    <!-- Configure the database connection here -->
+    <jdbc>
+        <driver>org.sqlite.JDBC</driver>
+        <url>jdbc:sqlite:./naomi.db</url>
+        <user></user>
+        <password></password>
+    </jdbc>
+
+    <generator>
+        <database>
+            <name>org.jooq.meta.sqlite.SQLiteDatabase</name>
+            <includes>.*</includes>
+            <excludes></excludes>
+
+            <!-- If left empty, jOOQ will generate all available schemata. See the
+                 manual's next section to learn how to generate several schemata -->
+            <inputSchema>[your database schema / owner / name]</inputSchema>
+        </database>
+
+        <generate>
+            <validationAnnotations>false</validationAnnotations>
+            <fluentSetters>true</fluentSetters>
+        </generate>
+
+        <target>
+            <packageName>com.forestbelton.github.naomi.database.codegen</packageName>
+            <directory>src/main/java</directory>
+        </target>
+    </generator>
+</configuration>
