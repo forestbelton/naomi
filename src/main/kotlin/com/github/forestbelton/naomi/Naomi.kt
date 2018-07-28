@@ -1,5 +1,8 @@
 package com.github.forestbelton.naomi
 
+import com.github.forestbelton.naomi.command.allCommands
+import com.github.forestbelton.naomi.message.DiscordMessage
+
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
@@ -37,5 +40,15 @@ class Naomi : ListenerAdapter() {
 
         logger.info("[{}#{}] {} ({}) - {}", event.guild.name, event.channel.name, event.author.name,
             event.author.id, event.message.contentRaw)
+
+        val message = DiscordMessage.from(event)
+        for (command in allCommands) {
+            val matcher = command.matcher()
+
+            if (matcher(message)) {
+                command.execute(message)
+                break
+            }
+        }
     }
 }
