@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
 
 fun main(args: Array<String>) {
@@ -30,7 +31,7 @@ fun main(args: Array<String>) {
 
 class Naomi : ListenerAdapter() {
     companion object {
-        val logger = LogManager.getLogger(Naomi::class.java)
+        val logger: Logger = LogManager.getLogger(Naomi::class.java)
     }
 
     override fun onMessageReceived(event: MessageReceivedEvent?) {
@@ -46,6 +47,7 @@ class Naomi : ListenerAdapter() {
             val matcher = command.matcher()
 
             if (matcher(message)) {
+                logger.info("Executing command {}", command)
                 command.execute(message)
                 break
             }
