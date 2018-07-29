@@ -8,7 +8,6 @@ class QuitCommand : Command {
     override fun matcher(): (Message) -> Boolean = commandMatcher("quit")
 
     override fun execute(message: Message) {
-        message.reply("goodbye, my sweet prince.")
-        System.exit(0)
+        message.reply("goodbye, my sweet prince.", { System.exit(0) })
     }
 }
