@@ -1,10 +1,12 @@
 package com.github.forestbelton.naomi.command
 
-import com.github.forestbelton.naomi.message.Message
-import org.jooq.DSLContext
+import com.github.forestbelton.naomi.command.matcher.MatchAction
+import com.github.forestbelton.naomi.command.matcher.WordMatcher
 
 interface Command {
-    fun matcher(): (Message) -> Boolean
+    fun matcher(): WordMatcher
 
-    fun execute(db: DSLContext, message: Message)
+    fun matches(content: String): Boolean = matcher().matchComponents(content) != null
+
+    fun actions(): List<MatchAction>
 }

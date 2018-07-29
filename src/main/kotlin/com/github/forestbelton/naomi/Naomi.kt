@@ -1,6 +1,7 @@
 package com.github.forestbelton.naomi
 
 import com.github.forestbelton.naomi.command.allCommands
+import com.github.forestbelton.naomi.command.matcher.match
 import com.github.forestbelton.naomi.message.DiscordMessage
 
 import net.dv8tion.jda.core.AccountType
@@ -56,11 +57,11 @@ class Naomi(val db: DSLContext) : ListenerAdapter() {
 
         val message = DiscordMessage.from(event)
         for (command in allCommands) {
-            val matcher = command.matcher()
+            val content = message.content()
 
-            if (matcher(message)) {
+            if (command.matches(content)) {
                 logger.info("Executing command {}", command)
-                command.execute(db, message)
+                match(db, message, command.actions())
                 break
             }
         }
