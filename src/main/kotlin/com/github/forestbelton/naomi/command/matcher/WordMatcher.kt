@@ -16,12 +16,12 @@ class WordMatcher(val pattern: List<PatternComponent>) {
     }
 
     fun matchComponents(content: String): List<String>? {
+        logger.debug("Attempting to match '{}' against {}", regex(), content)
+
         var components = mutableListOf<String>()
         var contentLeft = content
 
         for (component in pattern) {
-            logger.info("trying to match ${component}, content=$contentLeft")
-
             val matches = when (component) {
                 is ExactComponent -> contentLeft.startsWith(component.word)
                 is WordComponent -> contentLeft.indexOf(' ') != -1
@@ -62,6 +62,19 @@ class WordMatcher(val pattern: List<PatternComponent>) {
         }
 
         return components
+    }
+
+    fun regex(): String {
+        val output = pattern.map { component: PatternComponent ->
+            when (component) {
+                is ExactComponent -> component.word
+                is WordComponent -> "([^ ]+?)"
+                is TailComponent -> "(.*)$"
+                is EndComponent -> "$"
+            }
+        }
+
+        return output.joinToString(" ")
     }
 
     class Builder {

@@ -12,7 +12,7 @@ class QdbCommand : Command {
     override fun matcher(): WordMatcher = WordMatcher.builder()
         .word()
         .exact("qdb")
-        .end()
+        .tail()
 
     override fun actions(): List<MatchAction> = listOf(
         MatchAction(

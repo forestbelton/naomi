@@ -15,7 +15,7 @@ class DiscordMessage(val event: MessageReceivedEvent) : Message {
     }
 
     override fun content(): String {
-        return event.message.contentDisplay
+        return event.message.contentRaw
     }
 
     override fun asked(): Boolean {
@@ -23,7 +23,7 @@ class DiscordMessage(val event: MessageReceivedEvent) : Message {
     }
 
     override fun reply(content: String, onComplete: () -> Unit) {
-        event.message.textChannel
+        event.message.channel
             .sendMessageFormat("<@%s>, %s", event.author.id, content)
             .queue({ _ -> onComplete() })
     }

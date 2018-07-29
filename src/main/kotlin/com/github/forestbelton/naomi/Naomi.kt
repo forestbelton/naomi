@@ -52,8 +52,7 @@ class Naomi(val db: DSLContext) : ListenerAdapter() {
             return
         }
 
-        logger.info("[{}#{}] {} ({}) - {}", event.guild.name, event.channel.name, event.author.name,
-            event.author.id, event.message.contentRaw)
+        logger.info("\"{}\" <@{}>: {}", event.author.name, event.author.id, event.message.contentRaw)
 
         val message = DiscordMessage.from(event)
         for (command in allCommands) {
