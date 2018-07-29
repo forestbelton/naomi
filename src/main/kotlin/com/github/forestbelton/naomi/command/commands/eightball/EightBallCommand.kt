@@ -1,4 +1,4 @@
-package com.github.forestbelton.naomi.command.eightball
+package com.github.forestbelton.naomi.command.commands.eightball
 
 import com.github.forestbelton.naomi.command.Command
 import com.github.forestbelton.naomi.command.matcher.commandMatcher

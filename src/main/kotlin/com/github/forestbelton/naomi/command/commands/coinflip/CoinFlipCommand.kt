@@ -1,4 +1,4 @@
-package com.github.forestbelton.naomi.command.coinflip
+package com.github.forestbelton.naomi.command.commands.coinflip
 
 import com.github.forestbelton.naomi.command.Command
 import com.github.forestbelton.naomi.command.matcher.commandMatcher
