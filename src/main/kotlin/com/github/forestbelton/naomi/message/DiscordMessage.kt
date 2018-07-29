@@ -18,10 +18,6 @@ class DiscordMessage(val event: MessageReceivedEvent) : Message {
         return event.message.isMentioned(event.jda.selfUser, MentionType.USER)
     }
 
-    override fun reply(content: String) {
-        this.reply(content, {})
-    }
-
     override fun reply(content: String, onComplete: () -> Unit) {
         event.message.textChannel
             .sendMessageFormat("<@%s>, %s", event.author.id, content)

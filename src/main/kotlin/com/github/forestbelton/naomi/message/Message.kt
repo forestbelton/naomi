@@ -5,7 +5,9 @@ interface Message {
 
     fun asked(): Boolean
 
-    fun reply(content: String)
+    fun reply(content: String) {
+        this.reply(content, {})
+    }
 
     fun reply(content: String, onComplete: () -> Unit)
 }
