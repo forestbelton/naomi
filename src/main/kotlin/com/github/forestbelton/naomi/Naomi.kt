@@ -13,7 +13,8 @@ import org.flywaydb.core.Flyway
 
 fun main(args: Array<String>) {
     val flyway = Flyway()
-    flyway.setDataSource("jdbc:sqlite:./naomi.db", "", "")
+    val jdbcUrl = System.getenv("JDBC_URL") ?: "jdbc:sqlite:./naomi.db"
+    flyway.setDataSource(jdbcUrl, "", "")
     flyway.migrate()
 
     val token = System.getenv("APP_TOKEN")
