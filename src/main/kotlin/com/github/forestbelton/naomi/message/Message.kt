@@ -1,6 +1,8 @@
 package com.github.forestbelton.naomi.message
 
 interface Message {
+    fun author(): String
+
     fun content(): String
 
     fun asked(): Boolean

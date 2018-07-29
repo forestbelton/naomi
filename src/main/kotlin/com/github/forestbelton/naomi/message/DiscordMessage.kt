@@ -10,6 +10,10 @@ class DiscordMessage(val event: MessageReceivedEvent) : Message {
         }
     }
 
+    override fun author(): String {
+        return event.message.author.id
+    }
+
     override fun content(): String {
         return event.message.contentDisplay
     }
