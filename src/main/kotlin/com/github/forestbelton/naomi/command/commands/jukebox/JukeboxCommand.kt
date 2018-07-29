@@ -9,7 +9,6 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import org.jooq.DSLContext
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
@@ -18,10 +17,14 @@ import org.apache.logging.log4j.LogManager
 
 class JukeboxCommand : Command, AudioEventAdapter() {
     companion object {
-        val logger = LogManager.getLogger(JukeboxCommand::class.java)
+        private val logger = LogManager.getLogger(JukeboxCommand::class.java)
+        private val playerManager = DefaultAudioPlayerManager()
+
+        init {
+            AudioSourceManagers.registerRemoteSources(playerManager)
+        }
     }
 
-    var playerManager: AudioPlayerManager? = null
     var player: AudioPlayer? = null
     var scheduler: AudioPlayerSendHandler? = null
 
@@ -49,11 +52,8 @@ class JukeboxCommand : Command, AudioEventAdapter() {
     )
 
     fun start(db: DSLContext, message: Message, args: List<String>) {
-        if (this.playerManager == null) {
-            this.playerManager = DefaultAudioPlayerManager()
-            AudioSourceManagers.registerRemoteSources(playerManager)
-
-            this.player = this.playerManager?.createPlayer()
+        if (this.player == null) {
+            this.player = playerManager.createPlayer()
             this.player?.addListener(this)
 
 
@@ -69,20 +69,19 @@ class JukeboxCommand : Command, AudioEventAdapter() {
     }
 
     fun play(db: DSLContext, message: Message, args: List<String>) {
-        if (this.playerManager == null) {
+        if (this.player == null) {
             this.start(db, message, args)
         }
 
         val url = args[3]
         val player = this.player
 
-        this.playerManager?.loadItem(url, object : AudioLoadResultHandler {
+        playerManager.loadItem(url, object : AudioLoadResultHandler {
             override fun loadFailed(exception: FriendlyException?) {
                 message.reply("I had trouble loading that.")
             }
 
             override fun trackLoaded(track: AudioTrack?) {
-                logger.info("Starting new track.")
                 player?.playTrack(track)
             }
 
