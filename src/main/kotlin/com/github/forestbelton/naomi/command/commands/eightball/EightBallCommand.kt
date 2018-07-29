@@ -1,14 +1,18 @@
 package com.github.forestbelton.naomi.command.commands.eightball
 
-import com.github.forestbelton.naomi.command.Command
-import com.github.forestbelton.naomi.command.matcher.MatchAction
+import com.github.forestbelton.naomi.command.SingleCommand
 import com.github.forestbelton.naomi.command.matcher.WordMatcher
 import com.github.forestbelton.naomi.message.Message
 import org.jooq.DSLContext
 
 import java.util.Random
 
-class EightBallCommand : Command {
+class EightBallCommand : SingleCommand(
+    WordMatcher.builder()
+        .word()
+        .exact("8ball")
+        .end()
+) {
     companion object {
         val eightBallResponses = arrayOf(
             "it is certain.",
@@ -34,20 +38,7 @@ class EightBallCommand : Command {
         )
     }
 
-    override fun matcher(): WordMatcher = WordMatcher.builder()
-        .word()
-        .exact("8ball")
-        .build()
-
-    override fun actions(): List<MatchAction> = listOf(
-        MatchAction(
-            WordMatcher.builder()
-                .build(),
-            this::execute
-        )
-    )
-
-    fun execute(db: DSLContext, message: Message, args: List<String>) {
+    override fun execute(db: DSLContext, message: Message, args: List<String>) {
         val responseIndex = Random().nextInt(eightBallResponses.size - 1)
         message.reply(eightBallResponses[responseIndex])
     }

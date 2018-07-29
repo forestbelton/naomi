@@ -12,7 +12,7 @@ class QdbCommand : Command {
     override fun matcher(): WordMatcher = WordMatcher.builder()
         .word()
         .exact("qdb")
-        .build()
+        .end()
 
     override fun actions(): List<MatchAction> = listOf(
         MatchAction(
@@ -28,7 +28,7 @@ class QdbCommand : Command {
                 .word()
                 .exact("qdb")
                 .exact("random")
-                .build(),
+                .end(),
             this::random
         )
     )

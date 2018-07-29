@@ -6,6 +6,7 @@ sealed class PatternComponent
 data class ExactComponent(val word: String) : PatternComponent()
 class WordComponent : PatternComponent()
 class TailComponent : PatternComponent()
+class EndComponent : PatternComponent()
 
 class WordMatcher(val pattern: List<PatternComponent>) {
     companion object {
@@ -25,6 +26,7 @@ class WordMatcher(val pattern: List<PatternComponent>) {
                 is ExactComponent -> contentLeft.startsWith(component.word)
                 is WordComponent -> contentLeft.indexOf(' ') != -1
                 is TailComponent -> true
+                is EndComponent -> contentLeft.isEmpty()
             }
 
             if (!matches) {
@@ -55,6 +57,7 @@ class WordMatcher(val pattern: List<PatternComponent>) {
                     components.add(contentLeft)
                     ""
                 }
+                is EndComponent -> ""
             }
         }
 
@@ -79,6 +82,9 @@ class WordMatcher(val pattern: List<PatternComponent>) {
             return WordMatcher(pattern)
         }
 
-        fun build(): WordMatcher = WordMatcher(pattern)
+        fun end(): WordMatcher {
+            pattern.add(EndComponent())
+            return WordMatcher(pattern)
+        }
     }
 }
