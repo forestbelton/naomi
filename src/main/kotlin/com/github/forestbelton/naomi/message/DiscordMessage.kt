@@ -1,5 +1,6 @@
 package com.github.forestbelton.naomi.message
 
+import net.dv8tion.jda.core.audio.AudioSendHandler
 import net.dv8tion.jda.core.entities.Message.MentionType
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 
@@ -26,5 +27,13 @@ class DiscordMessage(val event: MessageReceivedEvent) : Message {
         event.message.channel
             .sendMessageFormat("<@%s>, %s", event.author.id, content)
             .queue({ _ -> onComplete() })
+    }
+
+    override fun joinChannel(handler: AudioSendHandler) {
+        val channel = event.message.member.voiceState.channel
+        val audioManager = event.guild.audioManager
+
+        audioManager.sendingHandler = handler
+        audioManager.openAudioConnection(channel)
     }
 }

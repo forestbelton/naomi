@@ -1,5 +1,7 @@
 package com.github.forestbelton.naomi.message
 
+import net.dv8tion.jda.core.audio.AudioSendHandler
+
 interface Message {
     fun author(): String
 
@@ -12,4 +14,6 @@ interface Message {
     }
 
     fun reply(content: String, onComplete: () -> Unit)
+
+    fun joinChannel(handler: AudioSendHandler)
 }

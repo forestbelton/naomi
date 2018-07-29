@@ -5,5 +5,9 @@ build/
 .project
 .settings/
 bin/
+out/
 src/main/java
 naomi.db
+naomi.iml
+naomi.ipr
+naomi.iws
