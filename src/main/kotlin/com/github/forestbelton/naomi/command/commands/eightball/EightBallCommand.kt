@@ -3,6 +3,7 @@ package com.github.forestbelton.naomi.command.commands.eightball
 import com.github.forestbelton.naomi.command.Command
 import com.github.forestbelton.naomi.command.matcher.commandMatcher
 import com.github.forestbelton.naomi.message.Message
+import org.jooq.DSLContext
 
 import java.util.Random
 
@@ -34,7 +35,7 @@ class EightBallCommand : Command {
 
     override fun matcher(): (Message) -> Boolean = commandMatcher("8ball")
 
-    override fun execute(message: Message) {
+    override fun execute(db: DSLContext, message: Message) {
         val responseIndex = Random().nextInt(eightBallResponses.size - 1)
         message.reply(eightBallResponses[responseIndex])
     }
